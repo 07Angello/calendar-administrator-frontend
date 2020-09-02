@@ -1,16 +1,28 @@
 .custom-container {
+    height: 100vh !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    background-image: linear-gradient(rgba(35, 35, 35, 0.5), rgba(35, 35, 35, 0.5)) , url('../../assets/calendar-medium.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 5%;
 }
 
 .custom-form {
     border-radius: 5px;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    padding: 5%;
-    width: 700px;
+    background-color: #fff;
+    padding-right: 0px;
+    padding-left: 0px
 }
 
 .custom-form h3{
@@ -19,12 +31,12 @@
 }
 
 .custom-container form{
-    padding: 10%;
+    padding: 5%;
 }
 
 .btnSubmit {
-    width: 50%;
-    border-radius: 1rem;
+    width: 100%;
+    border-radius: 5px;
     padding: 1.5%;
     border: none;
     cursor: pointer;
@@ -39,4 +51,52 @@
     color: #0062cc;
     font-weight: 600;
     text-decoration: none;
+}
+
+.form-footer {
+    background-color: #f6f6f6;
+    border-top: 1px solid #dce8f1;
+    text-align: center;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+    padding: 15px;
+}
+
+.underlineHover {
+    text-decoration: none !important;
+    color: #0062cc !important;
+    font-weight: 400;
+}
+
+.underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: #0062cc;
+    content: "";
+    transition: width 0.2s;
+}
+
+.underlineHover:hover {
+
+    color: #0d0d0d;
+    cursor: pointer;
+}
+
+.underlineHover:hover:after {
+    width: 100%;
+}
+
+.user-img {
+    height: 100px;
+    width: 100px;
+}
+
+.img-container {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
