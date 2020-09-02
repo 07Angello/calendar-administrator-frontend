@@ -1,9 +1,13 @@
 import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { customTitles } from './helpers/calendar-titles';
 import { Navbar } from './components/ui/Navbar';
+
+import 'moment/locale/en-gb';
+moment.locale('en-gb');
 
 const localizer = momentLocalizer(moment);
 
@@ -24,6 +28,7 @@ export const CalendarApp = () => {
                 events={ events }
                 startAccessor="start"
                 endAccessor="end"
+                messages={ customTitles }
             />
 
         </div>
