@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -17,16 +16,14 @@ Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
 
-    const [ isOpen, setIsOpen ] =  useState(true);
-
     const closeModal = () => {
-        setIsOpen( false );
+        
     }
 
     return (
         <div>
             <Modal
-                isOpen={ isOpen }
+                isOpen={ true }
                 // onAfterOpen={ afteropenModal }
                 onRequestClose={ closeModal }
                 style={ customStyles }
@@ -34,9 +31,51 @@ export const CalendarModal = () => {
                 className="modal"
                 overlayClassName="modal-background"
             >
-                <h1>Modal Event</h1>
+                <h1>New Event</h1>
                 <hr/>
-                <span> MODAL </span>
+                <form className="form-group">
+                    <div className="form-group">
+                        <label>Start date and time</label>
+                        <input className="form-control" placeholder="Start Date" />
+                    </div>
+
+                    <div className="form-group">
+                        <label>End date and time</label>
+                        <input className="form-control" placeholder="End Date" />
+                    </div>
+
+                    <hr />
+
+                    <div className="form-group">
+                        <label>Title and notes</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Event Title"
+                            name="title"
+                            autoComplete="off"
+                        />
+                        <small id="emailHelp" className="form-text text-muted">Short title description</small>
+                    </div>
+
+                    <div className="form-group">
+                        <textarea
+                            type="text"
+                            className="form-control"
+                            placeholder="Notes"
+                            rows="3"
+                            name="notes"
+                        ></textarea>
+                        <small id="emailHelp" className="form-text text-muted">Aditional information</small>
+                    </div>
+
+                    <button type="submit" className="btn btn-outline-primary btn-block">
+                        <i className="far fa-save"></i>
+                        <span> Save</span>
+                    </button>
+
+                </form>
+                
             </Modal>
         </div>
     )
