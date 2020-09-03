@@ -50,7 +50,20 @@ html, body {
     color: rgb(51, 51, 51);
     display: inline;
     max-height: 565px;
-    max-width: 500px;
+    max-width: 450px;
     outline: none;
     padding: 10px;
+}
+
+
+/* Custom Datepicker */
+.react-datetime-picker input:focus {
+    outline: none;
+}
+
+.react-datetime-picker__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid gray !important;
 }
