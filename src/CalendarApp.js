@@ -2,12 +2,13 @@ import React from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { customTitles } from './helpers/calendar-titles';
 import { Navbar } from './components/ui/Navbar';
-
-import 'moment/locale/en-gb';
 import { CalendarEvent } from './components/calendar/CalendarEvent';
+
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'moment/locale/en-gb';
+
 moment.locale('en-gb');
 
 const localizer = momentLocalizer(moment);
@@ -17,7 +18,11 @@ const events = [{
     start: moment().toDate(),
     end: moment().add( 2, 'hours' ).toDate(),
     bgcolor: '#fafafa',
-    notes: 'Comprar el pastel'
+    notes: 'Comprar el pastel',
+    user: {
+        _id: '123',
+        name: 'Angello'
+    }
 }]
 
 export const CalendarApp = () => {
