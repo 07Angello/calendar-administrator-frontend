@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 
@@ -27,8 +27,22 @@ const events = [{
 
 export const CalendarApp = () => {
 
+    const [ lastView, setLastView ] = useState( localStorage.getItem('lastView') || 'month' );
+
+    const onDoubleClick = ( event ) => {
+        console.log(event);
+    }
+
+    const onSelectEvent = ( event ) => {
+        console.log(event);
+    }
+
+    const onViewChange = ( event ) => {
+        setLastView( event );
+        localStorage.setItem( 'lastView', event );
+    }
+
     const eventSylteGetter = ( event, start, end, isSelected ) => {
-        console.log( event, start, end, isSelected );
         const style = {
             backgroundColor: '#367CF7',
             borderRadius: '0px',
@@ -52,6 +66,10 @@ export const CalendarApp = () => {
                 endAccessor="end"
                 messages={ customTitles }
                 eventPropGetter={ eventSylteGetter }
+                onDoubleClickEvent={ onDoubleClick }
+                onSelectEvent={ onSelectEvent }
+                onView={ onViewChange }
+                view={ lastView }
                 components={{
                     event: CalendarEvent
                 }}
