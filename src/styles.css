@@ -84,3 +84,12 @@ html, body {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+/* FAB styles - Floating action button */
+.fab {
+    border-radius: 100%;
+    bottom: 25px;
+    font-size: 30px;
+    padding: 15px;
+    position: fixed;
+    right: 25px;
+}
