@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import moment from 'moment'
 import Modal from 'react-modal';
 import DateTimePicker from 'react-datetime-picker';
+import Swal from 'sweetalert2';
 
 const customStyles = {
     content: {
@@ -21,6 +22,7 @@ const end = now.clone().add( 1, 'hours' );
 
 export const CalendarModal = () => {
 
+    const [ isTitleValid, setIsTitleValid] = useState( true );
     const [ startDate, setStartDate ] = useState( now.toDate() );
     const [ endDate, setEndDate ] = useState( end.toDate() );
 
@@ -28,10 +30,10 @@ export const CalendarModal = () => {
         title: '',
         notes: '',
         start: now.toDate(),
-        end: end.toDate()
+        finish: end.toDate()
     });
 
-    const { notes, title } = formValues
+    const { notes, title, start, finish } = formValues;
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -63,7 +65,20 @@ export const CalendarModal = () => {
     const saveEvent = ( event ) => {
         event.preventDefault();
 
-        console.log( formValues ); 
+        const momentStart = moment( start );
+        const momentFinish = moment( finish );
+
+        if ( momentStart.isSameOrAfter( momentFinish ) ) {
+            return Swal.fire('Warning!', 'The END DATE should be greather than START DATE.', 'warning');
+        }
+
+        if ( title.trim().length < 2 ) {
+            setIsTitleValid( false );
+            return;
+        }
+
+        setIsTitleValid( true );
+        closeModal();
     }
 
     return (
@@ -80,27 +95,34 @@ export const CalendarModal = () => {
                 <h1>New Event</h1>
                 <hr/>
                 <form
-                    className="form-group"
+                    className="container"
                     onSubmit={ saveEvent }
                 >
-                    <div className="form-group">
-                        <label>Start date and time</label>
-                        <DateTimePicker
-                            onChange={ handleStartDate }
-                            value={ startDate }
-                            className="form-control"
-                        />
+
+                    <div className="form-row">
+                        <div className="col">
+                            <label>Start date and time</label>
+                            <DateTimePicker
+                                onChange={ handleStartDate }
+                                value={ startDate }
+                                className="form-control"
+                                required={ true }
+                                autoFocus={ false }
+                            />
+                        </div>
+
+                        <div className="col">
+                            <label>End date and time</label>
+                            <DateTimePicker
+                                onChange={ handleEndDate }
+                                value={ endDate }
+                                className="form-control"
+                                required={ true }
+                                autoFocus={ false }
+                            />
+                        </div>
                     </div>
 
-                    <div className="form-group">
-                        <label>End date and time</label>
-                        <DateTimePicker
-                            onChange={ handleEndDate }
-                            value={ endDate }
-                            minDate={ startDate }
-                            className="form-control"
-                        />
-                    </div>
 
                     <hr />
 
@@ -108,7 +130,7 @@ export const CalendarModal = () => {
                         <label>Title and notes</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className={`form-control ${ !isTitleValid && 'is-invalid' }`}
                             placeholder="Event Title"
                             name="title"
                             autoComplete="off"
