@@ -20,7 +20,7 @@ moment.locale('en-gb');
 const localizer = momentLocalizer(moment);
 
 const events = [{
-    title: 'Cumpleaños de la flaquis',
+    title: 'Cumpleaños de la Angello',
     start: moment().toDate(),
     end: moment().add( 2, 'hours' ).toDate(),
     bgcolor: '#fafafa',
