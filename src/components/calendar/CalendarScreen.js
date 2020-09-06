@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import { customTitles } from '../../helpers/calendar-titles';
@@ -16,23 +16,13 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/en-gb';
 
 moment.locale('en-gb');
-
 const localizer = momentLocalizer(moment);
-
-const events = [{
-    title: 'Cumpleaños de la Angello',
-    start: moment().toDate(),
-    end: moment().add( 2, 'hours' ).toDate(),
-    bgcolor: '#fafafa',
-    notes: 'Comprar el pastel',
-    user: {
-        _id: '123',
-        name: 'Angello'
-    }
-}]
 
 
 export const CalendarScreen = () => {
+
+    const { events } = useSelector( state => state.calendar );
+    const newEvents = Object.assign([], events);
 
     const dispatch = useDispatch();
 
@@ -44,7 +34,7 @@ export const CalendarScreen = () => {
 
     const onSelectEvent = ( event ) => {
         dispatch( eventSetActive( event ) );
-        dispatch( uiOpenModal() );
+        // dispatch( uiOpenModal() );
     }
 
     const onViewChange = ( event ) => {
@@ -71,7 +61,7 @@ export const CalendarScreen = () => {
 
             <Calendar
                 localizer={ localizer }
-                events={ events }
+                events={ newEvents }
                 startAccessor="start"
                 endAccessor="end"
                 messages={ customTitles }
