@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import moment from 'moment'
@@ -7,7 +7,7 @@ import DateTimePicker from 'react-datetime-picker';
 import Swal from 'sweetalert2';
 
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew } from '../../actions/events';
+import { eventAddNew, eventClearActiveEvent, eventUpdated } from '../../actions/events';
 
 const customStyles = {
     content: {
@@ -25,36 +25,32 @@ Modal.setAppElement('#root');
 const now = moment().minutes(0).seconds(0).add( 1, 'hours' );
 const finish = now.clone().add( 1, 'hours' );
 
-
-const newEvent = {
-    id: new Date().getTime(),
-    title: 'Cumpleaño de Angello!',
-    start: moment().add( 24, 'hours' ).toDate(),
-    end: moment().add( 26, 'hours' ).toDate(),
-    bgcolor: '#fafafa',
-    notes: 'Comprar el pastel',
-    user: {
-        _id: '123',
-        name: 'Test User'
-    }
-};
+const initEvent = {
+    title: '',
+    notes: '',
+    start: now.toDate(),
+    end: finish.toDate()
+}
 
 export const CalendarModal = () => {
 
     const { modalOpen } = useSelector(state => state.ui);
+    const { activeEvent } = useSelector(state => state.calendar);
+
     const dispatch = useDispatch();
 
     const [ startDate, setStartDate ] = useState( now.toDate() );
     const [ endDate, setEndDate ] = useState( finish.toDate() );
 
-    const [formValues, setFormValues] = useState({
-        title: '',
-        notes: '',
-        start: now.toDate(),
-        end: finish.toDate()
-    });
+    const [formValues, setFormValues] = useState( initEvent );
 
     const { notes, title, start, end } = formValues;
+
+    useEffect(() => {
+        if ( activeEvent ) {
+            setFormValues( activeEvent );
+        }
+    }, [ activeEvent, setFormValues ]);
 
     const handleInputChange = ({ target }) => {
         setFormValues({
@@ -65,6 +61,8 @@ export const CalendarModal = () => {
 
     const closeModal = () => {
         dispatch( uiCloseModal() );
+        dispatch ( eventClearActiveEvent() );
+        setFormValues( initEvent );
     }
 
     const handleStartDate = ( event ) => {
@@ -93,15 +91,18 @@ export const CalendarModal = () => {
             return Swal.fire('Warning!', 'The END DATE should be greather than START DATE.', 'warning');
         }
 
-        console.log({...formValues});
-        dispatch( eventAddNew({ 
-            ...formValues,
-            id: new Date().getTime(),
-            user: {
-                _id: '123',
-                name: 'Angello'
-            }
-        }) );
+        if ( activeEvent ) {
+            dispatch( eventUpdated( formValues ) );
+        } else {
+            dispatch( eventAddNew({ 
+                ...formValues,
+                id: new Date().getTime(),
+                user: {
+                    _id: '123',
+                    name: 'Angello'
+                }
+            }) );
+        }
 
         closeModal();
     }
@@ -110,7 +111,6 @@ export const CalendarModal = () => {
         <div>
             <Modal
                 isOpen={ modalOpen }
-                // onAfterOpen={ afteropenModal }
                 onRequestClose={ closeModal }
                 style={ customStyles }
                 closeTimeoutMS={ 200 }
