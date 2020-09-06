@@ -11,7 +11,7 @@ import { CalendarEvent } from '../../components/calendar/CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 
 import { uiOpenModal } from '../../actions/ui';
-import { eventSetActive } from '../../actions/events';
+import { eventSetActive, eventClearActiveEvent } from '../../actions/events';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/en-gb';
@@ -37,8 +37,9 @@ export const CalendarScreen = () => {
         dispatch( eventSetActive( event ) );
     }
 
-    const onSelectSlot = (  ) => {
-
+    const onSelectSlot = ( event ) => {
+        console.log( event );
+        dispatch( eventClearActiveEvent() );
     }
 
     const onViewChange = ( event ) => {
