@@ -38,7 +38,6 @@ export const CalendarScreen = () => {
     }
 
     const onSelectSlot = ( event ) => {
-        console.log( event );
         dispatch( eventClearActiveEvent() );
     }
 
