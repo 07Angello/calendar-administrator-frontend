@@ -1,7 +1,23 @@
 import React from 'react';
 import './custom-style.css';
+import { useForm } from '../hooks/useForm';
 
 export const LoginScreen = () => {
+
+
+    const [ formLoginValues, handleLoginInputChange ] = useForm({
+        email: 'test1@email.com',
+        password: '123456'
+    });
+
+    const { email, password } = formLoginValues;
+
+    const logIn = ( event ) => {
+        event.preventDefault();
+
+        console.log( formLoginValues );
+    }
+
     return (
         <div className="custom-container">
             <div className="col-md-4 custom-form">
@@ -10,15 +26,37 @@ export const LoginScreen = () => {
                 </div>
                 <div className="form-container">
                     <h3>Calendar Events</h3>
-                    <form>
+                    <form
+                        onSubmit={ logIn }
+                    >
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="email" />
+                            <input 
+                                type="email"
+                                className="form-control"
+                                placeholder="Email"
+                                name="email"
+                                value={ email }
+                                onChange={ handleLoginInputChange }
+                                required
+                            />
                         </div>
                         <div className="form-group">
-                            <input type="password" className="form-control" placeholder="password" />
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Password"
+                                name="password"
+                                value={ password }
+                                onChange={ handleLoginInputChange }
+                                required
+                            />
                         </div>
                         <div className="form-group">
-                            <input type="submit" className="btnSubmit" value="Login" />
+                            <input
+                                type="submit"
+                                className="btnSubmit"
+                                value="Login"
+                            />
                         </div>
                     </form>
                 </div>
