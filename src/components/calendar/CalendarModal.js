@@ -49,6 +49,8 @@ export const CalendarModal = () => {
     useEffect(() => {
         if ( activeEvent ) {
             setFormValues( activeEvent );
+        } else {
+            setFormValues( initEvent );
         }
     }, [ activeEvent, setFormValues ]);
 
@@ -117,33 +119,13 @@ export const CalendarModal = () => {
                 className="modal"
                 overlayClassName="modal-background"
             >
-                <h1>New Event</h1>
+                <h1>{ (activeEvent) ? 'Edit event' : 'New Event' }</h1>
                 <hr/>
                 <form
                     className="container"
                     onSubmit={ saveEvent }
                 >
-                    <div className="form-group">
-                        <label>Start date and time</label>
-                        <DateTimePicker
-                            onChange={ handleStartDate }
-                            value={ startDate }
-                            className="form-control"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>End date and time</label>
-                        <DateTimePicker
-                            onChange={ handleEndDate }
-                            value={ endDate }
-                            className="form-control"
-                        />
-                    </div>
-
-                    <hr />
-
-                    <div className="form-group">
+                                        <div className="form-group">
                         <label>Title and notes</label>
                         <input
                             type="text"
@@ -169,6 +151,26 @@ export const CalendarModal = () => {
                             onChange={ handleInputChange }
                         ></textarea>
                         <small id="emailHelp" className="form-text text-muted">Aditional information</small>
+                    </div>
+
+                    <hr />
+
+                    <div className="form-group">
+                        <label>Start date and time</label>
+                        <DateTimePicker
+                            onChange={ handleStartDate }
+                            value={ startDate }
+                            className="form-control"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>End date and time</label>
+                        <DateTimePicker
+                            onChange={ handleEndDate }
+                            value={ endDate }
+                            className="form-control"
+                        />
                     </div>
 
                     <button type="submit" className="btn btn-outline-primary btn-block">

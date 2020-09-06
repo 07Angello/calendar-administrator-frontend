@@ -6,6 +6,7 @@ import moment from 'moment';
 import { customTitles } from '../../helpers/calendar-titles';
 import { Navbar } from '../../components/ui/Navbar';
 import { AddNewFab } from '../../components/ui/AddNewFab';
+import { DeleteEventFab } from '../../components/ui/DeleteEventFab';
 import { CalendarEvent } from '../../components/calendar/CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 
@@ -21,7 +22,7 @@ const localizer = momentLocalizer(moment);
 
 export const CalendarScreen = () => {
 
-    const { events } = useSelector( state => state.calendar );
+    const { events, activeEvent } = useSelector( state => state.calendar );
     const newEvents = Object.assign([], events);
 
     const dispatch = useDispatch();
@@ -34,7 +35,10 @@ export const CalendarScreen = () => {
 
     const onSelectEvent = ( event ) => {
         dispatch( eventSetActive( event ) );
-        // dispatch( uiOpenModal() );
+    }
+
+    const onSelectSlot = (  ) => {
+
     }
 
     const onViewChange = ( event ) => {
@@ -68,6 +72,8 @@ export const CalendarScreen = () => {
                 eventPropGetter={ eventSylteGetter }
                 onDoubleClickEvent={ onDoubleClick }
                 onSelectEvent={ onSelectEvent }
+                onSelectSlot={ onSelectSlot }
+                selectable={ true }
                 onView={ onViewChange }
                 view={ lastView }
                 components={{
@@ -77,7 +83,12 @@ export const CalendarScreen = () => {
 
             <CalendarModal />
 
+            {
+                ( activeEvent ) && <DeleteEventFab />
+            }
+
             <AddNewFab />
+            
         </div>
     )
 }
