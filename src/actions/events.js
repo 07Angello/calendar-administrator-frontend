@@ -11,8 +11,6 @@ export const eventStartAddNew = ( event ) => {
         try {
             const response = await fetchWithToken( 'events', event, 'POST' );
             const { Message, Data } = await response.json();
-    
-            console.log(Data);
 
             if ( Message && Message.length > 0 ) {
                 toast.warn( Message );
@@ -24,10 +22,11 @@ export const eventStartAddNew = ( event ) => {
                 }
 
                 dispatch( eventAddNew( event ) );
-                toast.success('The event has been successfully saved.');
+                toast.success( 'The event has been successfully saved.' );
             }
-        } catch (error) {
-            toast.error('An error has ocurred while the event was saving!');
+        } catch ( error ) {
+            console.log( error );
+            toast.error( 'An error has ocurred while the event was saving!' );
         }
     }
 }
@@ -37,7 +36,7 @@ const eventAddNew = ( event ) => ({
     payload: event
 });
 
-export const eventSetActive = (event) => ({
+export const eventSetActive = ( event ) => ({
     type: types.eventSetActive,
     payload: event
 });
@@ -53,4 +52,32 @@ export const eventUpdated = ( event ) => ({
 
 export const eventDeleted = ( event ) => ({
     type: types.eventDeleted
+});
+
+export const eventStartLoading = () => {
+    return async( dispatch ) => {
+
+        try {
+            const response = await fetchWithToken( 'events' );
+            const { Message, Data } = await response.json();
+
+            if ( Message && Message.length > 0 ) {
+                toast.warn( Message );
+            } else {
+                console.log( Data );
+                dispatch( eventsLoaded( [] ) );
+            }
+        } catch (error) {
+            
+            // PENDING TO FINISH
+            console.log(error);
+            toast.error('An error has ocurred while the event was saving!');
+        }
+
+    }
+};
+
+const eventsLoaded = ( events ) => ({
+    type: types.eventLoaded,
+    payload: events
 });

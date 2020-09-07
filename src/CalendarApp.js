@@ -11,7 +11,11 @@ export const CalendarApp = () => {
     return (
         <Provider store={ store }>
             <AppRouter />
-            <ToastContainer />
+            <ToastContainer
+                position="top-right"
+                newestOnTop={ true }
+                autoClose={ 3500 }
+            />
         </Provider>
     )
 }
