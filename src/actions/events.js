@@ -1,6 +1,38 @@
 import { types } from '../types/types';
+import { fetchWithToken } from '../helpers/fetch';
 
-export const eventAddNew = ( event ) => ({
+import { toast } from 'react-toastify';
+
+export const eventStartAddNew = ( event ) => {
+    return async ( dispatch, getState ) => {
+
+        const { uid, name } = getState().auth;
+
+        try {
+            const response = await fetchWithToken( 'events', event, 'POST' );
+            const { Message, Data } = await response.json();
+    
+            console.log(Data);
+
+            if ( Message && Message.length > 0 ) {
+                toast.warn( Message );
+            } else {
+                event.id = Data._id;
+                event.user = {
+                    uid: uid,
+                    name: name
+                }
+
+                dispatch( eventAddNew( event ) );
+                toast.success('The event has been successfully saved.');
+            }
+        } catch (error) {
+            toast.error('An error has ocurred while the event was saving!');
+        }
+    }
+}
+
+const eventAddNew = ( event ) => ({
     type: types.eventAddNew,
     payload: event
 });
