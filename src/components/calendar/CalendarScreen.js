@@ -23,7 +23,6 @@ const localizer = momentLocalizer(moment);
 export const CalendarScreen = () => {
 
     const { events, activeEvent } = useSelector( state => state.calendar );
-    const newEvents = Object.assign([], events);
 
     const dispatch = useDispatch();
 
@@ -65,7 +64,7 @@ export const CalendarScreen = () => {
 
             <Calendar
                 localizer={ localizer }
-                events={ newEvents }
+                events={ events }
                 startAccessor="start"
                 endAccessor="end"
                 messages={ customTitles }

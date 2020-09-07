@@ -61,8 +61,6 @@ export const startChecking = () => {
                 name: Data.name
             }) );
         } else {
-            toast.error('Could not generate a nuew token.');
-
             dispatch( checkingFinish() );
         }
     }
@@ -75,4 +73,16 @@ const login = ( user ) => ({
 
 const checkingFinish = () => ({
     type: types.authCheckingFinisih
+});
+
+export const startLogout = () => {
+    return ( dispatch ) => {
+        localStorage.clear();
+
+        dispatch( logOut() );
+    }
+}
+
+const logOut = () => ({
+    type: types.authLogout
 });
