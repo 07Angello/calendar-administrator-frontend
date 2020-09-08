@@ -100,3 +100,33 @@
     justify-content: center;
     align-items: center;
 }
+
+.login-register-animation {
+    -webkit-animation-name: moveInTop;
+            animation-name: moveInTop;
+    -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+    z-index: 10;
+}
+
+@-webkit-keyframes moveInTop {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(100px);
+                transform: translateY(100px);
+    }
+}
+
+@keyframes moveInTop {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(100px);
+                transform: translateY(100px)
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translate(0);
+                transform: translate(0);
+    }
+}

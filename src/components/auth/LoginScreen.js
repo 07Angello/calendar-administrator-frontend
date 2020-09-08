@@ -24,7 +24,7 @@ export const LoginScreen = () => {
 
     return (
         <div className="custom-container">
-            <div className="col-md-4 custom-form">
+            <div className="col-md-4 custom-form login-register-animation">
                 <div className="img-container">
                     <img src={ require('../../assets/user.svg') } className='user-img' alt="User icon"/>
                 </div>

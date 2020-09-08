@@ -30,7 +30,7 @@ export const RegisterScreen = () =>{
 
     return (
         <div className="custom-container">
-            <div className="col-md-4 custom-form">
+            <div className="col-md-4 custom-form login-register-animation">
                 <div className="form-container">
                     <h3>Register</h3>
                     <form
