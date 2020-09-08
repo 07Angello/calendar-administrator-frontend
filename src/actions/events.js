@@ -2,6 +2,7 @@ import { types } from '../types/types';
 import { fetchWithToken } from '../helpers/fetch';
 
 import { toast } from 'react-toastify';
+import { prepareEvents } from '../helpers/prepareEvents';
 
 export const eventStartAddNew = ( event ) => {
     return async ( dispatch, getState ) => {
@@ -64,12 +65,10 @@ export const eventStartLoading = () => {
             if ( Message && Message.length > 0 ) {
                 toast.warn( Message );
             } else {
-                console.log( Data );
-                dispatch( eventsLoaded( [] ) );
+                const events = prepareEvents( Data );
+                dispatch( eventsLoaded( events ) );
             }
         } catch (error) {
-            
-            // PENDING TO FINISH
             console.log(error);
             toast.error('An error has ocurred while the event was saving!');
         }
