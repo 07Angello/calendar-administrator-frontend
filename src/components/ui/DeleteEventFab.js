@@ -18,11 +18,6 @@ export const DeleteEventFab = () => {
         }).then((result) => {
             if (result.value) {
                 dispatch( eventStartDelete() );
-                Swal.fire(
-                    'Deleted!',
-                    'The event has been deleted!',
-                    'success'
-                )
             }
         });
     }

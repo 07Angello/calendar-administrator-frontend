@@ -59,8 +59,8 @@ export const eventStartUpdate = ( event ) => {
             if ( Message && Message.length > 0 ) {
                 toast.warn( Message );
             } else {
-                toast.success( 'This event has been updated.' );
                 dispatch( eventUpdated( event ) );
+                toast.success( 'This event has been updated.' );
             }
 
         } catch (error) {
@@ -76,18 +76,20 @@ const eventUpdated = ( event ) => ({
     payload: event
 });
 
-export const eventStartDelete = ( event ) => {
-    return async( dispatch ) => {
+export const eventStartDelete = () => {
+    return async( dispatch, getState ) => {
+
+        const { _id } = getState().calendar.activeEvent;
 
         try {
             
-            const response = await fetchWithToken( `events/${ event._id }`, {  }, 'DELETE' );
+            const response = await fetchWithToken( `events/${ _id }`, {  }, 'DELETE' );
             const { Message } = await response.json();
 
             if ( Message && Message.length > 0 ) {
                 toast.warn( Message );
             } else {
-                dispatch( eventDeleted( event ) );
+                dispatch( eventDeleted() );
                 toast.success( 'The event has beend DELETED.' );
             }
 
@@ -99,7 +101,7 @@ export const eventStartDelete = ( event ) => {
     }
 };
 
-const eventDeleted = ( event ) => ({
+const eventDeleted = ( ) => ({
     type: types.eventDeleted
 });
 
