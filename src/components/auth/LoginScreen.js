@@ -65,7 +65,7 @@ export const LoginScreen = () => {
                     </form>
                 </div>
                 <div className="form-footer">
-                    <a className="underlineHover">Register</a>
+                    <a className="underlineHover" href="/register">Register</a>
                 </div>
             </div>
         </div>
