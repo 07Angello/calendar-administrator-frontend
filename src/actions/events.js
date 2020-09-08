@@ -46,12 +46,60 @@ export const eventClearActiveEvent = ( event ) => ({
     type: types.eventClearActiveEvent
 });
 
-export const eventUpdated = ( event ) => ({
+
+export const eventStartUpdate = ( event ) => {
+    return async( dispatch ) => {
+
+        try {
+            const response = await fetchWithToken( `events/${ event._id }`, event, 'PUT' );
+            const { Data, Message } = await response.json();
+
+            console.log( Data );
+
+            if ( Message && Message.length > 0 ) {
+                toast.warn( Message );
+            } else {
+                toast.success( 'This event has been updated.' );
+                dispatch( eventUpdated( event ) );
+            }
+
+        } catch (error) {
+            console.log( error );
+            toast.error( 'An error has ocurred while the event was UPDATING!' );
+        }
+
+    }
+}
+
+const eventUpdated = ( event ) => ({
     type: types.eventUpdated,
     payload: event
 });
 
-export const eventDeleted = ( event ) => ({
+export const eventStartDelete = ( event ) => {
+    return async( dispatch ) => {
+
+        try {
+            
+            const response = await fetchWithToken( `events/${ event._id }`, {  }, 'DELETE' );
+            const { Message } = await response.json();
+
+            if ( Message && Message.length > 0 ) {
+                toast.warn( Message );
+            } else {
+                dispatch( eventDeleted( event ) );
+                toast.success( 'The event has beend DELETED.' );
+            }
+
+        } catch (error) {
+            console.log( error );
+            toast.error( 'An error has ocurred while the event was DELETING!' );
+        } 
+
+    }
+};
+
+const eventDeleted = ( event ) => ({
     type: types.eventDeleted
 });
 
@@ -70,7 +118,7 @@ export const eventStartLoading = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error('An error has ocurred while the event was saving!');
+            toast.error('An error has ocurred while the events were LOADING!');
         }
 
     }

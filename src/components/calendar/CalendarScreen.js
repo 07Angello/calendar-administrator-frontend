@@ -55,7 +55,7 @@ export const CalendarScreen = () => {
     const eventSylteGetter = ( event, start, end, isSelected ) => {
 
         const style = {
-            backgroundColor: ( uid === event.user.uid ) ? '#367CF7' : '#465660',
+            backgroundColor: ( uid === event.user._id || uid === event.user.uid ) ? '#367CF7' : '#465660',
             borderRadius: '0px',
             opacity: 0.9,
             display: 'block'
