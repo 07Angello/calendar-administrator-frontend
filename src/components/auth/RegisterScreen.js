@@ -90,6 +90,8 @@ export const RegisterScreen = () =>{
                     </form>
                 </div>
             </div>
+
+            <h4 className="gabo">Angello Gámez</h4>
         </div>
     )
 }

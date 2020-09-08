@@ -68,6 +68,8 @@ export const LoginScreen = () => {
                     <a className="underlineHover" href="/register">Register</a>
                 </div>
             </div>
+
+            <h4 className="gabo">Angello Gámez</h4>
         </div>
     )
 }

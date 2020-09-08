@@ -22,7 +22,7 @@ export const AppRouter = () => {
     }, [ dispatch ])
 
     if ( isChecking ) {
-        return (<h5>Espere...</h5>);
+        return (<h5>Please wait a few seconds...</h5>);
     }
 
     return (
