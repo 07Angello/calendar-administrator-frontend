@@ -2,6 +2,7 @@ import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch";
 import { types } from '../types/types';
 
 import { toast } from 'react-toastify';
+import { eventLogout } from "./events";
 
 export const startLogin = ( email, password ) => {
     return async( dispatch ) => {
@@ -77,8 +78,9 @@ const checkingFinish = () => ({
 
 export const startLogout = () => {
     return ( dispatch ) => {
-        localStorage.clear();
 
+        localStorage.clear();
+        dispatch( eventLogout() );
         dispatch( logOut() );
     }
 }
