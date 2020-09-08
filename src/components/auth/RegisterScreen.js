@@ -44,16 +44,18 @@ export const RegisterScreen = () =>{
                                 name="name"
                                 value={ name }
                                 onChange={ handleRegisterInputChange }
+                                required
                             />
                         </div>
                         <div className="form-group">
                             <input
-                                type="text"
+                                type="email"
                                 className="form-control"
                                 placeholder="Email"
                                 name="email"
                                 value={ email }
                                 onChange={ handleRegisterInputChange }
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -64,6 +66,7 @@ export const RegisterScreen = () =>{
                                 name="password"
                                 value={ password }
                                 onChange={ handleRegisterInputChange }
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -74,6 +77,7 @@ export const RegisterScreen = () =>{
                                 name="password2"
                                 value={ password2 }
                                 onChange={ handleRegisterInputChange }
+                                required
                             /> 
                         </div>
                         <div className="form-group">

@@ -16,7 +16,7 @@ export const eventStartAddNew = ( event ) => {
             if ( Message && Message.length > 0 ) {
                 toast.warn( Message );
             } else {
-                event.id = Data._id;
+                event._id = Data._id;
                 event.user = {
                     uid: uid,
                     name: name
@@ -52,9 +52,9 @@ export const eventStartUpdate = ( event ) => {
 
         try {
             const response = await fetchWithToken( `events/${ event._id }`, event, 'PUT' );
-            const { Data, Message } = await response.json();
+            const { Message } = await response.json();
 
-            console.log( Data );
+            console.log( Message );
 
             if ( Message && Message.length > 0 ) {
                 toast.warn( Message );
