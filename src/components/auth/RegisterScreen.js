@@ -4,10 +4,13 @@ import { useDispatch } from 'react-redux';
 import { useForm } from '../hooks/useForm';
 import { toast } from 'react-toastify';
 import { registerUser } from '../../actions/auth';
+import { useHistory } from 'react-router-dom';
 
 export const RegisterScreen = () =>{
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const [ formRegisterValues, handleRegisterInputChange ] = useForm({
         name: '',
@@ -26,6 +29,10 @@ export const RegisterScreen = () =>{
         }
 
         dispatch( registerUser( name, email, password ) );
+    }
+
+    const goLoginScreen = () => {
+        history.push("/login");
     }
 
     return (
@@ -88,6 +95,12 @@ export const RegisterScreen = () =>{
                             />
                         </div>
                     </form>
+                </div>
+                <div className="form-footer">
+                    <a
+                        className="underlineHover"
+                        onClick={ goLoginScreen }
+                    >Register</a>
                 </div>
             </div>
 

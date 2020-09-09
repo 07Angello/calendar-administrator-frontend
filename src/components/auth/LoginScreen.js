@@ -3,11 +3,13 @@ import './custom-style.css';
 import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { startLogin } from '../../actions/auth';
+import { useHistory } from 'react-router-dom';
 
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
 
+    const history = useHistory();
 
     const [ formLoginValues, handleLoginInputChange ] = useForm({
         email: '',
@@ -20,6 +22,10 @@ export const LoginScreen = () => {
         event.preventDefault();
 
         dispatch( startLogin( email, password) );
+    }
+
+    const goRegisterScreen = () => {
+        history.push('/register');
     }
 
     return (
@@ -65,7 +71,10 @@ export const LoginScreen = () => {
                     </form>
                 </div>
                 <div className="form-footer">
-                    <a className="underlineHover" href="/register">Register</a>
+                    <a
+                        className="underlineHover"
+                        onClick={ goRegisterScreen }
+                    >Register</a>
                 </div>
             </div>
 
